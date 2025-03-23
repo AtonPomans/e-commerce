@@ -1,39 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Login</title>
+    <link rel="stylesheet" href="securestyle.css"/>
+</head>
+<body>
 <?php
-require 'db.php';
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = trim($_POST['email']);
-    $password = $_POST['password'];
-
-    // Fetch user
-    $stmt = $conn->prepare("SELECT id, name, password FROM users WHERE email = ?");
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $stmt->store_result();
-
-    if ($stmt->num_rows === 1) {
-        $stmt->bind_result($id, $name, $hashedPassword);
-        $stmt->fetch();
-
-        if (password_verify($password, $hashedPassword)) {
-            echo "Welcome, $name! You are logged in.";
-            // Here you can start a session or redirect to a dashboard
+    require('db.php');
+    session_start();
+    // When form submitted, check and create user session.
+    if (isset($_POST['username'])) {
+        $username = stripslashes($_REQUEST['username']);    // removes backslashes
+        $username = mysqli_real_escape_string($con, $username);
+        $password = stripslashes($_REQUEST['password']);
+        $password = mysqli_real_escape_string($con, $password);
+        // Check user is exist in the database
+        $query    = "SELECT * FROM `users` WHERE username='$username'
+                     AND password='" . md5($password) . "'";
+        $result = mysqli_query($con, $query) or die(mysql_error());
+        $rows = mysqli_num_rows($result);
+        if ($rows == 1) {
+            $_SESSION['username'] = $username;
+            // Redirect to user dashboard page
+            header("Location: dashboard.php");
         } else {
-            echo "Invalid password.";
+            echo "<div class='form'>
+                  <h3>Incorrect Username/password.</h3><br/>
+                  <p class='link'>Click here to <a href='login.php'>Login</a> again.</p>
+                  </div>";
         }
     } else {
-        echo "No user found with that email.";
-    }
-
-    $stmt->close();
-    $conn->close();
-}
 ?>
-
-<!-- Simple login form -->
-<form method="POST" action="login.php">
-    <input type="email" name="email" placeholder="Email" required /><br>
-    <input type="password" name="password" placeholder="Password" required /><br>
-    <button type="submit">Login</button>
-</form>
-
+    <form class="form" method="post" name="login">
+        <h1 class="login-title">Login</h1>
+        <input type="text" class="login-input" name="username" placeholder="Username" autofocus="true"/>
+        <input type="password" class="login-input" name="password" placeholder="Password"/>
+        <input type="submit" value="Login" name="submit" class="login-button"/>
+        <p class="link"><a href="registration.php">New Registration</a></p>
+  </form>
+<?php
+    }
+?>
+</body>
+</html>
