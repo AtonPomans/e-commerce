@@ -1,7 +1,7 @@
 <?php
-    $host = "localhost";
-    $user = "root";
-    $password = "";
+    $host = "ecommerce.c4xw6gema9h1.us-east-1.rds.amazonaws.com";
+    $user = "admin";
+    $password = "db.Tr33P0st";
     $dbname = "ecommerce";
 
     $con = mysqli_connect("$host","$user","$password","$dbname");
