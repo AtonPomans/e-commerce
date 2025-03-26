@@ -1,7 +1,7 @@
 
 <?php
 session_start();
-$loggedIn = isset($_SESSION['email']);
+$loggedIn = isset($_SESSION['user_id']);
 ?>
 
 <!DOCTYPE html>
@@ -70,7 +70,7 @@ $loggedIn = isset($_SESSION['email']);
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end">
                                     <li><a class="dropdown-item" href="/auth/login.php">Login</a><li>
-                                    <li><a class="dropdown-item" href="/auth/registration.php">Register</a><li>
+                                    <li><a class="dropdown-item" href="/auth/register.php">Register</a><li>
                                 </ul>
                             </div>
 

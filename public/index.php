@@ -1,5 +1,5 @@
 
-<?php include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'] . '/../includes/header.php'; ?>
 
 <body>
     <main>
@@ -9,26 +9,26 @@
             <div class="carousel-inner">
 
                 <div class="carousel-item active">
-                    <img src="assets/images/placeholder.png" class="d-block w-100" alt="Product 1">
+                    <img src="/assets/images/placeholder.png" class="d-block w-100" alt="Product 1">
                     <div class="carousel-caption d-none d-md-block">
                         <h5>Featured Product 1</h5>
-                        <a href="shop.html" class="btn btn-primary">Shop Now</a>
+                        <a href="/shop/shop.php" class="btn btn-primary">Shop Now</a>
                     </div>
                 </div>
 
                 <div class="carousel-item">
-                    <img src="assets/images/placeholder.png" class="d-block w-100" alt="Product 2">
+                    <img src="/assets/images/placeholder.png" class="d-block w-100" alt="Product 2">
                     <div class="carousel-caption d-none d-md-block">
                         <h5>Featured Product 2</h5>
-                        <a href="shop.html" class="btn btn-primary">Shop Now</a>
+                        <a href="/shop/shop.php" class="btn btn-primary">Shop Now</a>
                     </div>
                 </div>
 
                 <div class="carousel-item">
-                    <img src="assets/images/placeholder.png" class="d-block w-100" alt="Product 3">
+                    <img src="/assets/images/placeholder.png" class="d-block w-100" alt="Product 3">
                     <div class="carousel-caption d-none d-md-block">
                         <h5>Featured Product 3</h5>
-                        <a href="shop.html" class="btn btn-primary">Shop Now</a>
+                        <a href="/shop/shop.php" class="btn btn-primary">Shop Now</a>
                     </div>
                 </div>
 
@@ -46,5 +46,5 @@
     </main>
 </body>
 
-<?php include $_SERVER['DOCUMENT_ROOT'] . '/includes/footer.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'] . '/../includes/footer.php'; ?>
 

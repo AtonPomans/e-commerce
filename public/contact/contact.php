@@ -1,5 +1,5 @@
 
-<?php include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'] . '/../includes/header.php'; ?>
 
 <body>
     <main>
@@ -25,23 +25,23 @@
         <!-- Contact Form Section -->
         <div class="container py-5">
             <div class="row py-5">
-                <form action="" class="col-md-9 m-auto">
+                <form action="" method="POST" class="col-md-9 m-auto">
                     <div class="row">
                         <div class="form-group col-md-6 mb-3">
-                            <label for="">Name</label>
-                            <input type="text" class="form-control mt-1" placeholder="Name">
+                            <label for="name">Name</label>
+                            <input type="text" name="name" class="form-control mt-1" placeholder="Name" required>
                         </div>
                         <div class="form-group col-md-6 mb-3">
-                            <label for="">Email</label>
-                            <input type="email" class="form-control mt-1" placeholder="example@gmail.com">
+                            <label for="email">Email</label>
+                            <input type="email" name="email" class="form-control mt-1" placeholder="example@gmail.com" required>
                         </div>
                         <div class="mb-3">
-                            <label for="">Subject</label>
-                            <input type="text" class="form-control mt-1" placeholder="Subject">
+                            <label for="subject">Subject</label>
+                            <input type="text" name="subject" class="form-control mt-1" placeholder="Subject" required>
                         </div>
                         <div class="mb-3">
-                            <label for="">Message</label>
-                            <textarea name="" id="" cols="30" rows="5" class="form-control mt-1" placeholder="Message"></textarea>
+                            <label for="message">Message</label>
+                            <textarea name="message" cols="30" rows="5" class="form-control mt-1" placeholder="Message" required></textarea>
                         </div>
                         <div class="row">
                             <div class="text-center col mt-2">
@@ -56,5 +56,5 @@
     </main>
 </body>
 
-<?php include $_SERVER['DOCUMENT_ROOT'] . '/includes/footer.php'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'] . '/../includes/footer.php'; ?>
 
