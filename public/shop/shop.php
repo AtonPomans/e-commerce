@@ -3,7 +3,7 @@
 include $_SERVER['DOCUMENT_ROOT'] . '/../includes/header.php';
 include $_SERVER['DOCUMENT_ROOT'] . '/../config/db.php';
 
-$sql = "SELECT name, price, description, image_path
+$sql = "SELECT product_id, name, price, description, image_path
         FROM products";
 $result = $conn->query($sql);
 ?>
@@ -25,14 +25,16 @@ $result = $conn->query($sql);
                             <h4 class="card-title"><?php echo htmlspecialchars($row['name']); ?></h4>
                             <p class="card-text">$<?php echo number_format($row['price'], 2); ?></p>
                             <p class="card-text text-muted small"><?php echo htmlspecialchars($row['description']); ?></p>
-                            <a href="#" class="btn btn-primary w-50">Add to Cart</a>
+                            <form action="#" method="POST">
+                                <input type="hidden" name="product_id" value="<?= $row['product_id'] ?>">
+                                <button type="submit" class="btn btn-primary w-50">Add to Cart</button>
+                            </form>
                         </div>
                     </div>
                 </div>
                 <?php endwhile; ?>
             </div>
         </div>
-
 
 
     </main>

@@ -31,11 +31,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         die("Error uploading image.");
     }
 
-    // Move file to uploads directory
-    if (!move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
-        die("Failed to save uploaded image.");
-    }
-
     // Prepare and insert product into database
     $stmt = $conn->prepare("INSERT INTO products (name, price, description, image_path) VALUES (?, ?, ?, ?)");
     $image_path_db = "uploads/" . $filename; // Path saved in DB is relative to public
