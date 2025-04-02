@@ -3,6 +3,11 @@
 include $_SERVER['DOCUMENT_ROOT'] . '/../includes/header.php';
 include $_SERVER['DOCUMENT_ROOT'] . '/../config/db.php';
 
+$user_id = $_SESSION['user_id'] ?? null;
+if (!$user_id) {
+    header("Location: /auth/login.php");
+}
+
 // form submition to handle item post
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // validate form data
@@ -32,14 +37,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (!move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
-    die("Failed to move uploaded image file.");
-}
-
+        die("Failed to move uploaded image file.");
+    }
 
     // Prepare and insert product into database
-    $stmt = $conn->prepare("INSERT INTO products (name, price, description, image_path) VALUES (?, ?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO products (name, price, description, image_path, user_id) VALUES (?, ?, ?, ?, ?)");
     $image_path_db = $filename; // name of image. placed in /assets/images/uploads
-    $stmt->bind_param("sdss", $name, $price, $description, $image_path_db);
+    $stmt->bind_param("sdssi", $name, $price, $description, $image_path_db, $user_id);
 
     if ($stmt->execute()) {
         header("Location: /shop/shop.php?status=success");
