@@ -18,9 +18,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $target_dir = $_SERVER['DOCUMENT_ROOT'] . "/assets/images/uploads/";
     $filename = uniqid() . "_" . basename($_FILES["image"]["name"]);
     $target_file = $target_dir . $filename;
-    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
     // Validate image type
+    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
     $allowed_types = ['jpg', 'jpeg', 'png', 'webp'];
     if (!in_array($imageFileType, $allowed_types)) {
         die("Only JPG, JPEG, PNG, and WEBP files are allowed.");
@@ -31,9 +31,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         die("Error uploading image.");
     }
 
+    if (!move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+    die("Failed to move uploaded image file.");
+}
+
+
     // Prepare and insert product into database
     $stmt = $conn->prepare("INSERT INTO products (name, price, description, image_path) VALUES (?, ?, ?, ?)");
-    $image_path_db = "uploads/" . $filename; // Path saved in DB is relative to public
+    $image_path_db = $filename; // name of image. placed in /assets/images/uploads
     $stmt->bind_param("sdss", $name, $price, $description, $image_path_db);
 
     if ($stmt->execute()) {

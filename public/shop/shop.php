@@ -35,11 +35,11 @@ $result = $conn->query($sql);
                 <?php while($row = $result->fetch_assoc()): ?>
                 <div class="col">
                     <div class="card h-100">
-                        <img src="https://placehold.co/300x200" class="card-img-top" alt="Product Image">
+                        <img src="/assets/images/uploads/<?php echo htmlspecialchars($row['image_path']); ?>" class="card-img-top" alt="Product Image">
                         <div class="card-body">
                             <h4 class="card-title"><?php echo htmlspecialchars($row['name']); ?></h4>
                             <p class="card-text">$<?php echo number_format($row['price'], 2); ?></p>
-                            <p class="card-text text-muted small"><?php echo htmlspecialchars($row['description']); ?></p>
+                            <p class="card-text description text-muted small"><?php echo htmlspecialchars($row['description']); ?></p>
                             <form action="#" method="POST">
                                 <input type="hidden" name="product_id" value="<?= $row['product_id'] ?>">
                                 <button type="submit" class="btn btn-primary w-50">Add to Cart</button>
