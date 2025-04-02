@@ -37,8 +37,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bind_param("sdss", $name, $price, $description, $image_path_db);
 
     if ($stmt->execute()) {
-        echo "<p>Product listed successfully!</p>";
-        echo '<p><a href="/shop/shop.php">Go to shop</a></p>';
+        header("Location: /shop/shop.php?status=success");
+        exit();
     } else {
         echo "Error: " . $stmt->error;
     }
@@ -47,40 +47,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $conn->close();
 }
 ?>
-
-<body><main>
-
-    <div class="container py-5" style="max-width: 600px;">
-        <h2 class="text-center mb-4">List a New Product</h2>
-
-        <form action="list-item.php" method="POST" enctype="multipart/form-data">
-            <div class="mb-3">
-                <label for="name" class="form-label">Product Name</label>
-                <input type="text" class="form-control" name="name" required>
-            </div>
-
-            <div class="mb-3">
-                <label for="price" class="form-label">Price ($)</label>
-                <input type="number" step="0.01" class="form-control" name="price" required>
-            </div>
-
-            <div class="mb-3">
-                <label for="description" class="form-label">Description</label>
-                <textarea class="form-control" name="description" rows="4" required></textarea>
-            </div>
-
-            <div class="mb-3">
-                <label for="image" class="form-label">Upload Product Image</label>
-                <input type="file" class="form-control" name="image" accept="image/*" required>
-            </div>
-
-            <button type="submit" class="btn btn-primary w-100">Submit Product</button>
-        </form>
-    </div>
-
-</main></body>
-
-<?php include $_SERVER['DOCUMENT_ROOT'] . '/../includes/footer.php'; ?>
-
-</html>
-
