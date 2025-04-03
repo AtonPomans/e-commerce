@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\includes",
+    "\\public",
+    "\\public\\assets",
+    "\\public\\assets\\css",
+    "\\public\\auth",
+    "\\public\\contact",
+    "\\public\\shop",
+    "\\public\\user",
+    "\\sql"
+  ],
+  "SelectedNode": "\\public\\user\\account.php",
+  "PreviewInSolutionExplorer": false
+}
