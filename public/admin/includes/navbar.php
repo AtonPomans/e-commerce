@@ -10,10 +10,11 @@
         </nav>-->
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
           <div class="ms-md-auto pe-md-3 d-flex align-items-center">
-            <div class="input-group input-group-outline">
-              <label class="form-label">Type here...</label>
-              <input type="text" class="form-control">
-            </div>
+            <?php if ($loggedIn): ?>
+              <p>Welcome </p>
+            <?php else: ?>
+              <a href="./auth/adminLogin.php">Log In</a>
+            <?php endif; ?>
           </div>
           
         </div>
