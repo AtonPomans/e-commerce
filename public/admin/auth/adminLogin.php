@@ -1,10 +1,10 @@
 <?php
     //session_start();
-    //include $_SERVER['DOCUMENT_ROOT'] . "/../../../config/db.php";
+    include $_SERVER['DOCUMENT_ROOT'] . "/../config/db.php";
 
     $invalid_submission = false;
 
-
+    /*
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $mysqli = require __DIR__ . "/../../../config/db.php";
         $sql = sprintf("SELECT * FROM admins
@@ -29,8 +29,8 @@
         $invalid_submission = true;
 
     }
-
-    /*
+    */
+    
     if($_SERVER["REQUEST_METHOD"] == "POST"){
         
         $email = $_POST["email"];
@@ -38,20 +38,22 @@
 
         if(empty($email) || empty($password)){
             $errors[] = "Password and Email Required";
+
+            $invalid_submission = true;
             
         }else{
-            $stmt = $conn->prepare("SELECT * FROM admins WHERE email = '%s'");
+            $stmt = $conn->prepare("SELECT * FROM admins WHERE email = ?");
             $stmt->bind_param("s", $email);
             $stmt->execute();
-            $admin = $stmt->store_result;
+            $stmt->store_result();
 
             if($stmt->num_rows > 0){
-                $stmt->bind_result($email, $password);
+                $stmt->bind_result($admin_id, $admin_user, $email, $password);
                 $stmt->fetch();
 
-                if($_POST["password"] === $admin["password"]){
+                if($_POST["password"] === $password){
                     session_start();
-                    $_SESSION["admin_id"] = $admin["admin_id"];
+                    $_SESSION["admin_id"] = $admin_id;
 
                     header("Location: ../index.php");
                     exit;
@@ -71,7 +73,7 @@
 
         }
     }
-    */
+    
 ?>
 
 <!DOCTYPE html>

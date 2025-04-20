@@ -12,6 +12,7 @@
           <div class="ms-md-auto pe-md-3 d-flex align-items-center">
             <?php if ($loggedIn): ?>
               <p>Welcome </p>
+              <a href="./auth/adminLogOut.php">Log Out</a>
             <?php else: ?>
               <a href="./auth/adminLogin.php">Log In</a>
             <?php endif; ?>
