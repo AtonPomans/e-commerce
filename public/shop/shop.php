@@ -7,6 +7,9 @@ include $_SERVER['DOCUMENT_ROOT'] . '/../config/db.php';
 $sql = "SELECT product_id, name, price, description, image_path
 FROM products";
 $result = $conn->query($sql);
+
+$sql = "SELECT category_id, name FROM categories";
+$category_list = $conn->query($sql);
 ?>
 
 <!-- list item form status -->
@@ -60,7 +63,7 @@ $result = $conn->query($sql);
                 <div class="modal-content">
 
                     <div class="modal-header">
-                        <h5 class="modal-title" id="myModalLabel">Modal Title</h5>
+                        <h5 class="modal-title" id="myModalLabel">List Item</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
 
@@ -77,6 +80,16 @@ $result = $conn->query($sql);
                             </div>
 
                             <div class="mb-3">
+                                <label for="category_id" class="form-label">Category</label>
+                                <select name="category_id" id="category_id" class="form-control" required>
+                                    <option value="" disabled selected>Select a category</option>
+                                    <?php while ($row = $category_list->fetch_assoc()): ?>
+                                        <option value="<?= $row['category_id'] ?>"><?= htmlspecialchars($row['name']) ?></option>
+                                    <?php endwhile; ?>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
                                 <label for="description" class="form-label">Description</label>
                                 <textarea class="form-control" name="description" rows="4" placeholder="Enter product description" required></textarea>
                             </div>
@@ -89,9 +102,9 @@ $result = $conn->query($sql);
 
                     </div>
 
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary" form="itemForm">Save changes</button>
+                    <div class="modal-footer d-flex">
+                        <button type="submit" class="btn btn-primary" form="itemForm">Post</button>
+                        <button type="button" class="btn btn-secondary ms-auto" data-bs-dismiss="modal">Close</button>
                     </div>
 
                 </div>
@@ -111,7 +124,7 @@ $result = $conn->query($sql);
       const bsAlert = bootstrap.Alert.getOrCreateInstance(alert);
       bsAlert.close();
     }
-  }, 8000); // hide after 4 seconds
+  }, 8000); // hide after 8 seconds
 </script>
 
 

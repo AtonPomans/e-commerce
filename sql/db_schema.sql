@@ -11,6 +11,12 @@ CREATE TABLE users (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+/* Categories Table */
+CREATE TABLE categories (
+    category_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL UNIQUE
+);
+
 /* Products Table */
 CREATE TABLE products (
     product_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -18,8 +24,10 @@ CREATE TABLE products (
     name VARCHAR(255),
     price DECIMAL(10,2),
     description TEXT,
+    category_id INT,
     image_path VARCHAR(255),
-    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (category_id) REFERENCES categories(category_id) ON DELETE SET NULL
 );
 
 /* Cart Table */
@@ -30,4 +38,22 @@ CREATE TABLE cart (
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
     FOREIGN KEY (product_id) REFERENCES products(product_id) ON DELETE CASCADE
 );
+
+/* Admin Table */
+CREATE TABLE admins (
+    admin_id INT PRIMARY KEY,
+    admin_user VARCHAR(50) NOT NULL,
+    email VARCHAR(50) NOT NULL,
+    password VARCHAR(50) NOT NULL
+);
+
+/* Pre-Populated Categories */
+INSERT INTO categories (name) VALUES
+('Electronics'),
+('Clothing'),
+('Home & Kitchen'),
+('Books'),
+('Toys & Games'),
+('Health & Beauty'),
+('Sports & Outdoors');
 

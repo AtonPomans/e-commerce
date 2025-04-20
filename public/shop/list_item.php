@@ -13,9 +13,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // validate form data
     $name = trim($_POST['name']);
     $price = floatval($_POST['price']);
+    $category_id = intval($_POST['category_id']);
     $description = trim($_POST['description']);
 
-    if (!$name || !$price || !$description || !isset($_FILES['image'])) {
+    if (!$name || !$price || !$category_id || !$description || !isset($_FILES['image'])) {
         die("Missing required fields.");
     }
 
@@ -41,9 +42,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Prepare and insert product into database
-    $stmt = $conn->prepare("INSERT INTO products (name, price, description, image_path, user_id) VALUES (?, ?, ?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO products (name, price, category_id, description, image_path, user_id) VALUES (?, ?, ?, ?, ?, ?)");
     $image_path_db = $filename; // name of image. placed in /assets/images/uploads
-    $stmt->bind_param("sdssi", $name, $price, $description, $image_path_db, $user_id);
+    $stmt->bind_param("sdissi", $name, $price, $category_id, $description, $image_path_db, $user_id);
 
     if ($stmt->execute()) {
         header("Location: /shop/shop.php?status=success");
