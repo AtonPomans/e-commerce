@@ -4,12 +4,24 @@ include $_SERVER['DOCUMENT_ROOT'] . '/../includes/header.php';
 include $_SERVER['DOCUMENT_ROOT'] . '/../config/db.php';
 
 
-$sql = "SELECT product_id, name, price, description, image_path
-FROM products";
+$search = $_GET['search'] ?? '';
+$category_id = $_GET['category'] ?? '';
+
+$sql = "SELECT product_id, name, price, description, image_path FROM products WHERE 1=1";
+
+if (!empty($search)) {
+    $safe_search = $conn->real_escape_string($search);
+    $sql .= " AND name LIKE '%$safe_search%'";
+}
+
+if (!empty($category_id)) {
+    $sql .= " AND category_id = " . intval($category_id);
+}
+
 $result = $conn->query($sql);
 
-$sql = "SELECT category_id, name FROM categories";
-$category_list = $conn->query($sql);
+// Fetch categories again for the form (because the previous fetch loop used up the result)
+$category_list = $conn->query("SELECT category_id, name FROM categories");
 ?>
 
 <!-- list item form status -->
@@ -33,6 +45,26 @@ $category_list = $conn->query($sql);
                     List Item
                 </button>
             </div>
+
+            <form method="GET" class="row g-2 mb-4 justify-content-center">
+                <div class="col-md-4">
+                    <input type="text" name="search" class="form-control" placeholder="Search products..." value="<?= htmlspecialchars($_GET['search'] ?? '') ?>">
+                </div>
+                <div class="col-md-3">
+                    <select name="category" class="form-select">
+                        <option value="">All Categories</option>
+                        <?php while ($cat = $category_list->fetch_assoc()): ?>
+                        <option value="<?= $cat['category_id'] ?>" <?= (isset($_GET['category']) && $_GET['category'] == $cat['category_id']) ? 'selected' : '' ?>>
+                            <?= htmlspecialchars($cat['name']) ?>
+                        </option>
+                        <?php endwhile; ?>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-outline-primary w-100">Search</button>
+                </div>
+            </form>
+
 
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-lg-4 g-4">
                 <?php while($row = $result->fetch_assoc()): ?>

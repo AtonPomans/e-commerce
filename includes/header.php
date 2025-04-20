@@ -42,9 +42,6 @@ $loggedIn = isset($_SESSION['user_id']);
                 <!-- Right Side Icons -->
                 <div>
 
-                    <a href="#" class="text-decoration-none text-dark nav-icon">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </a>
                     <a href="/user/cart.php" class="text-decoration-none text-dark nav-icon">
                         <i class="fa-solid fa-cart-shopping"></i>
                     </a>
