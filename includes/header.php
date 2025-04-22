@@ -2,6 +2,14 @@
 <?php
 session_start();
 $loggedIn = isset($_SESSION['user_id']);
+
+$cart_count = 0;
+if ($loggedIn) {
+    include $_SERVER['DOCUMENT_ROOT'] . '/../config/db.php';
+    $uid = $_SESSION['user_id'];
+    $res = $conn->query("SELECT COUNT(*) AS count FROM cart WHERE user_id = $uid");
+    $cart_count = $res->fetch_assoc()['count'];
+}
 ?>
 
 <!DOCTYPE html>
@@ -42,8 +50,13 @@ $loggedIn = isset($_SESSION['user_id']);
                 <!-- Right Side Icons -->
                 <div>
 
-                    <a href="/user/cart.php" class="text-decoration-none text-dark nav-icon">
+                    <a href="/user/cart.php" class="text-decoration-none text-dark position-relative nav-icon">
                         <i class="fa-solid fa-cart-shopping"></i>
+                        <?php if ($cart_count > 0): ?>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            <?= $cart_count ?>
+                        </span>
+                        <?php endif; ?>
                     </a>
 
                     <?php if ($loggedIn): ?>

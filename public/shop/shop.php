@@ -9,6 +9,11 @@ $category_id = $_GET['category'] ?? '';
 
 $sql = "SELECT product_id, name, price, description, image_path FROM products WHERE 1=1";
 
+if (isset($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
+    $sql .= " AND user_id != $user_id";
+}
+
 if (!empty($search)) {
     $safe_search = $conn->real_escape_string($search);
     $sql .= " AND name LIKE '%$safe_search%'";
@@ -20,6 +25,16 @@ if (!empty($category_id)) {
 
 $result = $conn->query($sql);
 
+$cart_product_ids = [];
+
+if (isset($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
+    $cart_result = $conn->query("SELECT product_id FROM cart WHERE user_id = $user_id");
+    while ($item = $cart_result->fetch_assoc()) {
+        $cart_product_ids[] = $item['product_id'];
+    }
+}
+
 // Fetch categories again for the form (because the previous fetch loop used up the result)
 $category_list = $conn->query("SELECT category_id, name FROM categories");
 ?>
@@ -27,7 +42,7 @@ $category_list = $conn->query("SELECT category_id, name FROM categories");
 <!-- list item form status -->
 <?php if (isset($_GET['status']) && $_GET['status'] === 'success'): ?>
     <div class="container alert alert-success alert-dismissible fade show mt-3 w-25" role="alert">
-        ✅ Your item was listed successfully!
+        Your item was listed successfully!
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 <?php endif ?>
@@ -40,10 +55,13 @@ $category_list = $conn->query("SELECT category_id, name FROM categories");
         <div class="container py-5">
             <h1 class="text-center mb-4">Shop</h1>
 
-            <div class="d-flex justify-content-center my-4">
-                <button type="button" class="btn btn-primary w-50" data-bs-toggle="modal" data-bs-target="#listItem">
+            <div class="d-flex justify-content-center gap-3 my-4">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#listItem">
                     List Item
                 </button>
+                <a href="/user/account.php#your-listings" class="btn btn-outline-primary">
+                    My Listings
+                </a>
             </div>
 
             <form method="GET" class="row g-2 mb-4 justify-content-center">
@@ -76,8 +94,16 @@ $category_list = $conn->query("SELECT category_id, name FROM categories");
                             <p class="card-text">$<?php echo number_format($row['price'], 2); ?></p>
                             <p class="card-text description text-muted small"><?php echo htmlspecialchars($row['description']); ?></p>
                             <form action="add_to_cart.php" method="POST">
-                                <input type="hidden" name="product_id" value="<?= $row['product_id'] ?>">
-                                <button type="submit" class="btn btn-primary w-50">Add to Cart</button>
+                                <?php if (in_array($row['product_id'], $cart_product_ids)): ?>
+                                <button class="btn btn-secondary w-50" disabled>In Cart</button>
+                                <?php else: ?>
+                                <form action="add_to_cart.php" method="POST">
+                                    <input type="hidden" name="product_id" value="<?= $row['product_id'] ?>">
+                                    <button type="submit" class="btn btn-primary w-50">Add to Cart</button>
+                                </form>
+                                <?php endif; ?>
+                                <!-- <input type="hidden" name="product_id" value="<?= $row['product_id'] ?>"> -->
+                                <!-- <button type="submit" class="btn btn-primary w-50">Add to Cart</button> -->
                             </form>
                         </div>
                     </div>
@@ -87,6 +113,10 @@ $category_list = $conn->query("SELECT category_id, name FROM categories");
         </div>
 
 
+        <?php
+        // re-query to populate category dropdown in the modal
+        $category_list = $conn->query("SELECT category_id, name FROM categories");
+        ?>
 
 
         <!-- list item modal -->
@@ -135,8 +165,10 @@ $category_list = $conn->query("SELECT category_id, name FROM categories");
                     </div>
 
                     <div class="modal-footer d-flex">
-                        <button type="submit" class="btn btn-primary" form="itemForm">Post</button>
-                        <button type="button" class="btn btn-secondary ms-auto" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" form="itemForm">Post Listing</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <!-- <button type="submit" class="btn btn-primary" form="itemForm">Post</button> -->
+                        <!-- <button type="button" class="btn btn-secondary ms-auto" data-bs-dismiss="modal">Close</button> -->
                     </div>
 
                 </div>
