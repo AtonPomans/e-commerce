@@ -48,6 +48,14 @@ $result = $stmt->get_result();
                 <?php endwhile; ?>
             </tbody>
         </table>
+
+
+        <?php if ($result->num_rows > 0): ?>
+        <div class="text-end mt-3">
+            <a href="/shop/checkout.php" class="btn btn-success">Proceed to Checkout</a>
+        </div>
+        <?php endif; ?>
+
     </div>
 
 
