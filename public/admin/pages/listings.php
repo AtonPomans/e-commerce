@@ -33,37 +33,21 @@
         <table class="table table-bordered mt-5">
             <thead class="bg-secondary">
                 <tr>
-                    <th>
-                        Product_ID
-                    </th>
+                    <th>Product_ID</th>
 
-                    <th>
-                        User_ID
-                    </th>
+                    <th>User_ID</th>
 
-                    <th>
-                        Product Name
-                    </th>
+                    <th>Product Name</th>
 
-                    <th>
-                        Price
-                    </th>
+                    <th>Price</th>
 
-                    <th>
-                        Description
-                    </th>
+                    <th>Description</th>
 
-                    <th>
-                        Category_ID
-                    </th>
+                    <th>Category_ID</th>
 
-                    <th>
-                        Image_Path
-                    </th>
+                    <th>Image_Path</th>
 
-                    <th>
-                        Remove Listing
-                    </th>
+                    <th>Remove Listing</th>
 
                 </tr>
             </thead>
@@ -80,32 +64,35 @@
                         $prod_desc = $row['description'];
                         $category_id = $row['category_id'];
                         $image_path = $row['image_path'];
-
-                    echo "
+                
+                    ?>
                         <tr>
-                            <td>$product_id</td>
+                            <td><?php echo $product_id?></td>
 
-                            <td>$user_id</td>
+                            <td><?php echo $user_id ?></td>
 
-                            <td>$prod_name</td>
+                            <td><?php echo $prod_name ?></td>
 
-                            <td>$prod_price</td>
+                            <td><?php echo $prod_price ?></td>
 
-                            <td>$prod_desc</td>
+                            <td><?php echo $prod_desc ?></td>
 
-                            <td>$category_id</td>
-
-                            <td>
-                                <img src='../../assets/images/uploads/$image_path'/>
-                            </td>
+                            <td><?php echo $category_id ?></td>
 
                             <td>
-                                <button>
-                                    <a href='./delete_product.php'>Delete</a>
-                                </button>
+                                <img src='../../assets/images/uploads/<?php echo $image_path?>' alt="Missing"/>
                             </td>
+                  
+                            <td>
+                                <form action="./delete_product.php" method="POST">
+                                    <input type="hidden" name="product_id" value="<?= $product_id?>"/>
+                                    <button class="btn">Delete</button>
+                                </form>
+                            </td>
+                
                         </tr>
-                    ";
+                <?php
+                    
                         
                     }
                 ?>
