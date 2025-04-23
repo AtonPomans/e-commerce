@@ -16,6 +16,13 @@
 <?php
     session_start();
     $loggedIn = isset($_SESSION['admin_id']);
+
+    include $_SERVER['DOCUMENT_ROOT'] . "/../config/db.php";
+
+    if ($loggedIn === true):
+        $curr_admin_user = $_SESSION['admin_user'];
+    
+    endif;
 ?>
 
 <!DOCTYPE html>

@@ -54,6 +54,7 @@
                 if($_POST["password"] === $password){
                     session_start();
                     $_SESSION["admin_id"] = $admin_id;
+                    $_SESSION["admin_user"] = $admin_user;
 
                     header("Location: ../index.php");
                     exit;
