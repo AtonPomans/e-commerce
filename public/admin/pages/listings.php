@@ -9,7 +9,7 @@
 <html lang="en">
 
 <head>
-    <title>Listings</title>
+    <title>Product Management</title>
 
     <style>/* Keeps the images to 100x100 px  */
         img{
@@ -24,7 +24,7 @@
 
 <body>
     <?php if ($loggedIn): ?>
-        <h1>Listings</h1>
+        <h1>Product Management</h1>
 
         <p>
             <a href="../index.php">Admin Homepage</a>
