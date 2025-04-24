@@ -18,6 +18,17 @@
             height: 100px;
             object-fit: cover;
         }
+
+        table, th, td{
+            border: 3px solid black;
+            border-collapse: collapse;
+            background-color: lightgray;
+        }
+
+        html {
+            background-color: gray;
+        }
+
     </style>
     
 </head>
@@ -25,7 +36,7 @@
 <body>
     <?php if ($loggedIn): ?>
         <h1>Product Management</h1>
-
+        
         <p>
             <a href="../index.php">Admin Homepage</a>
         </p>

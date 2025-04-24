@@ -45,6 +45,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
 <head>
     <title>Admin Registration</title>
+
+     <style>
+        table, th, td {
+            border: 3px solid black;
+            border-collapse: collapse;
+            background-color: lightgray;
+        }
+
+        html {
+            background-color: gray;
+        }
+    </style>
+
 </head>
 
 <body>

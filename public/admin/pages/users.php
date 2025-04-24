@@ -10,6 +10,18 @@
 
 <head>
     <title>Users</title>
+
+    <style>
+        table, th, td {
+            border: 3px solid black;
+            border-collapse: collapse;
+            background-color: lightgray;
+        }
+
+        html {
+            background-color: gray;
+        }
+    </style>
 </head>
 
 <body>
