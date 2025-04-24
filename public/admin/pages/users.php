@@ -84,7 +84,7 @@
                   
                             <td>
                                 <form action="./delete_user.php" method="POST">
-                                    <input type="hidden" name="product_id" value="<?= $user_id ?>"/>
+                                    <input type="hidden" name="user_id" value="<?= $user_id ?>"/>
                                     <button class="btn">Delete</button>
                                 </form>
                             </td>

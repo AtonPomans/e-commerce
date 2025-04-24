@@ -54,10 +54,4 @@
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <?php include('navbar.php'); ?>
 
-        <div class="container-fluid py-4">
-            <div class="row min-vh-80 h-100">
-                <div class="col-12">
-          
-                </div>
-            </div>
-        </div>
+        

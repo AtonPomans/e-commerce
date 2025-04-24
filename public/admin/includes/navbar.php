@@ -11,15 +11,13 @@
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
           <div class="ms-md-auto pe-md-3 d-flex align-items-center">
             <?php if ($loggedIn): ?>
-              <div>
-                <p>Welcome <?= $curr_admin_user ?> </p>
-              </div>
-              <p> </p>
-              <div>
+              
+              <p>Welcome <?= $curr_admin_user ?> </p>
+
               <p>
                 <a href="./auth/adminLogOut.php">Log Out</a>
               </p>
-              </div>
+              
 
             <?php else: ?>
               
