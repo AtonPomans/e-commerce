@@ -17,6 +17,10 @@
               <p>
                 <a href="./auth/adminLogOut.php">Log Out</a>
               </p>
+
+              <p>
+                  <a href="./pages/admin_account.php">Account</a>
+              </p>
               
 
             <?php else: ?>
