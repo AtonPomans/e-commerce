@@ -6,6 +6,8 @@ $loggedIn = isset($_SESSION['user_id']);
 $cart_count = 0;
 if ($loggedIn) {
     include $_SERVER['DOCUMENT_ROOT'] . '/../config/db.php';
+    $curr_first = $_SESSION['first_name'];
+    $curr_last = $_SESSION['last_name'];
     $uid = $_SESSION['user_id'];
     $res = $conn->query("SELECT COUNT(*) AS count FROM cart WHERE user_id = $uid");
     $cart_count = $res->fetch_assoc()['count'];

@@ -7,7 +7,7 @@ $user_id = $_SESSION['user_id'];
 
 //Select information from users table to display on dashboard
 $sql_users = "SELECT first_name, last_name
-FROM users";
+FROM users WHERE user_id = $user_id";
 $result_users = $conn->query($sql_users);
 $row_users = $result_users->fetch_assoc();
 
@@ -26,7 +26,7 @@ $product_result = $conn->query("SELECT * FROM products WHERE user_id = $user_id"
                 <h1 class="h1">User Dashboard</h1>
                 <h4>User: </h4>
                 <p>
-                    <?php echo htmlspecialchars($row_users['first_name']); ?> <?php echo htmlspecialchars($row_users['last_name']); ?>
+                    <?php echo htmlspecialchars($curr_first); ?> <?php echo htmlspecialchars($curr_last); ?>
                 </p>
 
             </div>

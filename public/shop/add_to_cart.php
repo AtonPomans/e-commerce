@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['product_id'])) {
 
     // Make sure user is logged in
     if (!isset($_SESSION['user_id'])) {
-        header("Location: /login.php");
+        header("Location: /auth/login.php");
         exit();
     }
 
