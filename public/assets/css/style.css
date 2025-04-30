@@ -49,21 +49,15 @@ main {
 }
 
 .carousel-inner {
-    height: 400px;
+    height: 75vh;
     width: 100%;
     background: #f8f9fa;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
 }
 
 .carousel-img {
-    height: 100%;
-    width: auto;
-    object-fit: contain; /* this keeps the whole image visible */
-    display: block;
-    margin: 0 auto;
+    height: 75%;
+    margin: 50px auto;
 }
 
 .carousel-caption {
