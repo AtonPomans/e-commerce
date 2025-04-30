@@ -11,8 +11,17 @@ FROM users WHERE user_id = $user_id";
 $result_users = $conn->query($sql_users);
 $row_users = $result_users->fetch_assoc();
 
+
+
+
+
+
+
 // get user's listings
 $product_result = $conn->query("SELECT * FROM products WHERE user_id = $user_id");
+
+// get user's order history
+$history_result = $conn->query("SELECT * FROM order_history WHERE user_id = $user_id");
 
 //query might need to go here to pull information from user_address table
 //I need to look at Amazon and Newegg to see how they format their user dashboards
@@ -33,6 +42,36 @@ $product_result = $conn->query("SELECT * FROM products WHERE user_id = $user_id"
         </div>
 
 
+
+
+
+        <div class="container" id="your_order_history">
+            <hr class="my-4">
+            <h3 class="mb-3">Order History</h3>
+
+            <table class="table table-bordered table-hover align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col">Image</th>
+                        <th scope="col">Product</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php while ($product = $history_result->fetch_assoc()): ?>
+                    <tr>
+                        <td style="width: 80px;">
+                            <img src="/assets/images/uploads/<?= htmlspecialchars($product['image_path']) ?>" alt="product" class="img-thumbnail" style="max-width: 70px;">
+                        </td>
+                        <td><?= htmlspecialchars($product['name']) ?></td>
+                        <td>$<?= number_format($product['price'], 2) ?></td>
+                        <td class="text-muted small"><?= htmlspecialchars($product['description']) ?></td>
+                    </tr>
+                    <?php endwhile; ?>
+                </tbody>
+            </table>
+        </div>
 
 
 

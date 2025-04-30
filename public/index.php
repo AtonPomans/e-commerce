@@ -1,5 +1,13 @@
 
-<?php include $_SERVER['DOCUMENT_ROOT'] . '/../includes/header.php'; ?>
+<?php
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+include $_SERVER['DOCUMENT_ROOT'] . '/../includes/header.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/../config/db.php';
+
+
+$products = $conn->query("SELECT name, image_path FROM products ORDER BY created_at ASC");
+?>
 
 <body>
     <main>
@@ -8,29 +16,35 @@
         <div id="productCarousel" class="carousel slide mx-auto mt-4" data-bs-ride="carousel" style="max-width: 75%; overflow: hidden">
             <div class="carousel-inner">
 
-                <div class="carousel-item active">
-                    <img src="/assets/images/uploads/.placeholder.png" class="d-block w-100" alt="Product 1">
+                <?php
+                $active = true;
+                while ($product = $products->fetch_assoc()):
+                ?>
+                <div class="carousel-item <?= $active ? 'active' : '' ?>">
+                    <img src="/assets/images/uploads/<?= htmlspecialchars($product['image_path']) ?>" class="d-block carousel-img" alt="<?= htmlspecialchars($product['name']) ?>">
                     <div class="carousel-caption d-none d-md-block">
-                        <h5>Featured Product 1</h5>
+                        <h5><?= htmlspecialchars($product['name']) ?></h5>
                         <a href="/shop/shop.php" class="btn btn-primary">Shop Now</a>
                     </div>
                 </div>
+                <?php $active = false; ?>
+                <?php endwhile; ?>
 
-                <div class="carousel-item">
-                    <img src="/assets/images/uploads/.placeholder.png" class="d-block w-100" alt="Product 2">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>Featured Product 2</h5>
-                        <a href="/shop/shop.php" class="btn btn-primary">Shop Now</a>
-                    </div>
-                </div>
-
-                <div class="carousel-item">
-                    <img src="/assets/images/uploads/.placeholder.png" class="d-block w-100" alt="Product 3">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>Featured Product 3</h5>
-                        <a href="/shop/shop.php" class="btn btn-primary">Shop Now</a>
-                    </div>
-                </div>
+                <!--<div class="carousel-item">-->
+                <!--    <img src="/assets/images/uploads/.placeholder.png" class="d-block w-100" alt="Product 2">-->
+                <!--    <div class="carousel-caption d-none d-md-block">-->
+                <!--        <h5>Featured Product 2</h5>-->
+                <!--        <a href="/shop/shop.php" class="btn btn-primary">Shop Now</a>-->
+                <!--    </div>-->
+                <!--</div>-->
+                <!---->
+                <!--<div class="carousel-item">-->
+                <!--    <img src="/assets/images/uploads/.placeholder.png" class="d-block w-100" alt="Product 3">-->
+                <!--    <div class="carousel-caption d-none d-md-block">-->
+                <!--        <h5>Featured Product 3</h5>-->
+                <!--        <a href="/shop/shop.php" class="btn btn-primary">Shop Now</a>-->
+                <!--    </div>-->
+                <!--</div>-->
 
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">

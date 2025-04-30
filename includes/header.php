@@ -78,7 +78,7 @@ if ($loggedIn) {
                     <?php else: ?>
 
                     <div class="dropdown d-inline-block nav-icon">
-                        <a class="dropdown-toggle text-decoration-none text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="dropdown-toggle text-decoration-none text-dark" href="#" role="button" data-bs-toggle="dropdown">
                             <i class="fa-solid fa-user"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
